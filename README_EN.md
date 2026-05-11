@@ -4,6 +4,8 @@
 ![OpenCV](https://img.shields.io/badge/OpenCV-4.x-green.svg)
 ![NumPy](https://img.shields.io/badge/NumPy-1.20+-blue.svg)
 ![Status](https://img.shields.io/badge/Version-Spanish%20Fork-orange.svg)
+![License](https://img.shields.io/badge/License-MIT-green.svg)
+![Open Source](https://img.shields.io/badge/Open%20Source-Yes-blue.svg)
 
 A text-based (CLI) video player that renders every video frame into high-quality ASCII art directly in your terminal. This version is an **enhanced and translated fork** based on the original work by @stepanussaruran.
 
@@ -61,6 +63,10 @@ python ASCII_v5_ultimate_ES.py my_video.mp4 --info
 ## 💡 Credits
 - **Original Creator**: [stepanussaruran](https://github.com/stepanussaruran)
 - **Translation and Enhancements**: Nicolas Romero (coralgamer) & Gemini AI.
+
+
+## ⚖️ License
+This project is **Open Source** and distributed under the **MIT License**. You are free to use, modify, and distribute it, as long as you maintain the original credits.
 
 ---
 *Para la versión en español, consulta [README_ES.md](README_ES.md).*

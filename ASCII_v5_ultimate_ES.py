@@ -13,8 +13,8 @@ Características:
   - Cierre seguro (Graceful shutdown)
 
 Créditos Originales: stepanussaruran
-Traducción al Español: Nicolas Romero (coralgamer) + Gemini 
-
+Traducción y Mejoras: Nicolas Romero (coralgamer)
+Licencia: MIT (Open Source)
 =====================================================
 ACTUALIZADO POR: CORALGAMER
 AGREGADO BY: CORALGAMER
@@ -84,19 +84,112 @@ def get_video_info(cap: cv2.VideoCapture) -> dict:
     }
 
 
+# ── Utilidades de Interfaz Premium ──────────────────────────────────────────
+
+def clear_console():
+    """Limpia la terminal completamente."""
+    sys.stdout.write(CLEAR_SCREEN + CURSOR_HOME)
+    sys.stdout.flush()
+
+def draw_box_title(title: str, subtitle: str = "", show_giant_cat: bool = True):
+    """Dibuja un encabezado estilizado que se ajusta a terminales estrechas."""
+    term_cols = os.get_terminal_size().columns
+    # Evitar que la caja sea demasiado pequeña
+    if term_cols < 20: term_cols = 20
+    
+    # Dibujo del gato pequeño centrado
+    small_cat = [
+        r"  |\__/,|   (`\ ",
+        r" |_ _  |.--.) )",
+        r" ( T   )     /",
+        r"(((^_((_((____/"
+    ]
+    
+    border_top    = f"{C_CYAN}╔{'═' * (term_cols - 2)}╗{RESET_COLOR}"
+    middle_empty  = f"{C_CYAN}║{' ' * (term_cols - 2)}║{RESET_COLOR}"
+    
+    print(border_top)
+    print(middle_empty)
+    
+    # Dibujar el gato dentro de la caja (solo si cabe)
+    for line in small_cat:
+        if len(line) < term_cols - 4:
+            padding = (term_cols - len(line) - 2) // 2
+            print(f"{C_CYAN}║{RESET_COLOR}{' ' * padding}{C_BOLD}{C_GRAY}{line}{RESET_COLOR}{' ' * (term_cols - len(line) - padding - 2)}{C_CYAN}║{RESET_COLOR}")
+    
+    print(middle_empty)
+    
+    # Título y subtítulo (truncar si es necesario)
+    max_text_w = term_cols - 6
+    
+    clean_title = title[:max_text_w]
+    t_padding = max(0, (term_cols - len(clean_title) - 2) // 2)
+    print(f"{C_CYAN}║{RESET_COLOR}{' ' * t_padding}{C_BOLD}{C_GREEN}{clean_title}{RESET_COLOR}{' ' * (term_cols - len(clean_title) - t_padding - 2)}{C_CYAN}║{RESET_COLOR}")
+    
+    if subtitle:
+        clean_sub = subtitle[:max_text_w]
+        s_padding = max(0, (term_cols - len(clean_sub) - 2) // 2)
+        print(f"{C_CYAN}║{RESET_COLOR}{' ' * s_padding}{C_GRAY}{clean_sub}{RESET_COLOR}{' ' * (term_cols - len(clean_sub) - s_padding - 2)}{C_CYAN}║{RESET_COLOR}")
+        
+    print(middle_empty)
+    print(f"{C_CYAN}╚{'═' * (term_cols - 2)}╝{RESET_COLOR}")
+# ── Arte ASCII Gigante (Cabecera) ───────────────────────────────────────────
+
+def show_cat_animation():
+    """Pequeña animación de un gato negro caminando por la pantalla."""
+    clear_console()
+    draw_box_title("PREPARANDO MOTORES...", "Cargando componentes visuales")
+    print("\n" * 3)
+    
+    cat_frames = [
+        [
+            r"   |\__/,|   (`\ ",
+            r" |_ _  |.--.) )",
+            r" ( T   )     /",
+            r"(((^_((_((____/"
+        ],
+        [
+            r"   |\__/,|   (`\ ",
+            r" |_ o  |.--.) )",
+            r" ( T   )     /",
+            r" ((^_((_((____/",
+            r'  "  "'
+        ]
+    ]
+    
+    term_cols = os.get_terminal_size().columns
+    for i in range(0, term_cols - 20, 2):
+        sys.stdout.write(CURSOR_HOME)
+        # Re-dibujar el titulo para que no desaparezca (sin el gato gigante aquí)
+        draw_box_title("PREPARANDO REPRODUCCIÓN...", "Nicolas Romero (CoralGamer) presenta", show_giant_cat=False)
+        
+        # Calcular posición del gato
+        frame = cat_frames[(i // 4) % 2]
+        print("\n" * 5)
+        for line in frame:
+            sys.stdout.write(f"{' ' * i}{C_BOLD}{C_GRAY}{line}{RESET_COLOR}\n")
+        
+        sys.stdout.flush()
+        time.sleep(0.05)
+    
+    time.sleep(0.5)
+
 def print_info(video_path: str, info: dict) -> None:
-    """Muestra la información del video en la terminal."""
+    """Muestra la información del video en la terminal con diseño premium."""
     dur   = int(info["duration_s"])
     mins  = dur // 60
     secs  = dur % 60
-    print(f"\n{C_BOLD}{C_CYAN}{'─' * 52}{RESET_COLOR}")
-    print(f"  {C_BOLD}ASCII Video Player v5 — Edición Ultimate{RESET_COLOR}")
-    print(f"{C_CYAN}{'─' * 52}{RESET_COLOR}")
-    print(f"  {C_YELLOW}Archivo      {RESET_COLOR}: {os.path.basename(video_path)}")
-    print(f"  {C_YELLOW}Resolución   {RESET_COLOR}: {info['width_px']} x {info['height_px']} px")
-    print(f"  {C_YELLOW}FPS          {RESET_COLOR}: {info['fps']:.2f}")
-    print(f"  {C_YELLOW}Duración     {RESET_COLOR}: {mins:02d}:{secs:02d} ({info['total_frames']} cuadros)")
-    print(f"{C_CYAN}{'─' * 52}{RESET_COLOR}\n")
+    
+    term_cols = os.get_terminal_size().columns
+    clear_console()
+    draw_box_title("DETALLES DEL VIDEO", "Analizando metadatos del archivo")
+    
+    print(f"\n  {C_YELLOW}╔═══════════════════ Datos Técnicos ═══════════════════╗{RESET_COLOR}")
+    print(f"  {C_CYAN}║{RESET_COLOR}  {C_BOLD}Archivo{RESET_COLOR}      : {os.path.basename(video_path)}")
+    print(f"  {C_CYAN}║{RESET_COLOR}  {C_BOLD}Resolución{RESET_COLOR}   : {info['width_px']} x {info['height_px']} px")
+    print(f"  {C_CYAN}║{RESET_COLOR}  {C_BOLD}FPS{RESET_COLOR}          : {info['fps']:.2f}")
+    print(f"  {C_CYAN}║{RESET_COLOR}  {C_BOLD}Duración{RESET_COLOR}     : {mins:02d}:{secs:02d} ({info['total_frames']} cuadros)")
+    print(f"  {C_YELLOW}╚══════════════════════════════════════════════════════╝{RESET_COLOR}\n")
 
 
 # ── Conversor de Cuadros (Frames) ─────────────────────────────────────────────
@@ -213,12 +306,13 @@ def play_video(
         if play_count == 1:
             print_info(video_path, info)
             mode_str = f"{C_GREEN}COLOR (ANSI 24-bit){RESET_COLOR}" if use_color else f"{C_GRAY}BLANCO Y NEGRO{RESET_COLOR}"
-            print(f"  Modo      : {mode_str}")
-            print(f"  Ajuste    : {'Automático (Pantalla)' if fit_screen else f'{width} chars'}")
-            print(f"  Salto     : cada {skip} cuadros")
-            print(f"  Bucle     : {'Sí' if loop else 'No'}")
-            print(f"\n{C_YELLOW}Iniciando en 2 segundos... Ctrl+C para detener.{RESET_COLOR}\n")
-            time.sleep(2.0)
+            print(f"  {C_BOLD}Modo{RESET_COLOR}      : {mode_str}")
+            print(f"  {C_BOLD}Ajuste{RESET_COLOR}    : {'Automático (Pantalla)' if fit_screen else f'{width} chars'}")
+            print(f"  {C_BOLD}Salto{RESET_COLOR}     : cada {skip} cuadros")
+            print(f"  {C_BOLD}Bucle{RESET_COLOR}     : {'Sí' if loop else 'No'}")
+            print(f"\n{C_YELLOW}Iniciando animación de carga...{RESET_COLOR}")
+            time.sleep(1.5)
+            show_cat_animation()
 
         # Decodificador en segundo plano
         frame_queue = Queue(maxsize=8)
@@ -257,15 +351,9 @@ def play_video(
                 tw, th = term_size.columns, term_size.lines
                 
                 if fit_screen:
-                    # th-2 para dejar espacio a la barra de progreso
                     available_h = max(1, th - 2)
                     available_w = tw
-                    
-                    # El factor 2.0 es porque los caracteres son más altos que anchos
-                    # Calculamos el ancho necesario para llenar el alto disponible
                     w_from_h = int(available_h * video_ar * 2.0)
-                    
-                    # Elegimos el ancho que no se pase de ninguno de los dos límites
                     current_width = min(available_w, w_from_h)
                 else:
                     current_width = width if width else 120
@@ -280,14 +368,14 @@ def play_video(
                 progress = frame_count / total_frames
                 bar_len  = max(10, tw - 45) # Barra dinámica
                 filled   = int(bar_len * progress)
-                bar      = "█" * filled + "░" * (bar_len - filled)
+                bar      = f"{C_GREEN}{'█' * filled}{RESET_COLOR}{C_GRAY}{'░' * (bar_len - filled)}{RESET_COLOR}"
                 loop_info = f" | Bucle #{play_count}" if loop else ""
                 
                 # Posicionar la barra al final de la terminal para evitar parpadeos
                 sys.stdout.write(f"\033[{th};1H") 
                 sys.stdout.write(
-                    f"{RESET_COLOR}{C_GRAY}[{bar}] "
-                    f"{frame_count}/{total_frames}{loop_info} | Ctrl+C{RESET_COLOR}"
+                    f"{C_CYAN}║{RESET_COLOR} [{bar}] "
+                    f"{C_BOLD}{frame_count}/{total_frames}{RESET_COLOR}{loop_info} | {C_RED}Ctrl+C{RESET_COLOR}"
                 )
                 sys.stdout.flush()
 
@@ -399,37 +487,37 @@ def main() -> None:
 
     # Si no hay argumentos, entrar en modo interactivo
     if args.video is None:
-        print(f"\n{C_BOLD}{C_CYAN}{'─' * 52}{RESET_COLOR}")
-        print(f"  {C_BOLD}ASCII Video Player v5 — Edición Ultimate{RESET_COLOR}")
-        print(f"{C_CYAN}{'─' * 52}{RESET_COLOR}")
-        print(f"\n  Para ver todas las opciones: {C_YELLOW}python ASCII_v5_ultimate_ES.py --help{RESET_COLOR}\n")
+        clear_console()
+        draw_box_title("ASCII VIDEO PLAYER v5", "Versión actualizada y traducida por CoralGamer")
+        
+        print(f"\n  {C_GRAY}Para ver todas las opciones: {C_YELLOW}python ASCII_v5_ultimate_ES.py --help{RESET_COLOR}\n")
 
-        args.video = input("  Introduce la ruta del video: ").strip().strip('"')
+        args.video = input(f"  {C_BOLD}{C_GREEN}»{RESET_COLOR} Introduce la ruta del video: ").strip().strip('"')
         if not args.video:
-            print(f"{C_RED}[ERROR]{RESET_COLOR} La ruta del video no puede estar vacía.")
+            print(f"  {C_RED}[ERROR]{RESET_COLOR} La ruta del video no puede estar vacía.")
             sys.exit(1)
 
-        color_input = input("  ¿Activar color? (s/N): ").strip().lower()
+        color_input = input(f"  {C_BOLD}{C_GREEN}»{RESET_COLOR} ¿Activar color? (s/N): ").strip().lower()
         args.color  = color_input == "s"
 
-        fit_input = input("  ¿Ajustar automáticamente al tamaño de la terminal? (S/n): ").strip().lower()
+        fit_input = input(f"  {C_BOLD}{C_GREEN}»{RESET_COLOR} ¿Ajustar automáticamente a la terminal? (S/n): ").strip().lower()
         args.fit   = fit_input != "n"
 
         if not args.fit:
             term_cols = os.get_terminal_size().columns
             try:
-                w = input(f"  Ancho de salida (default 120, terminal={term_cols}): ").strip()
+                w = input(f"  {C_BOLD}{C_GREEN}»{RESET_COLOR} Ancho de salida (default 120, terminal={term_cols}): ").strip()
                 args.width = int(w) if w else 120
             except ValueError:
                 args.width = 120
 
         try:
-            s = input("  Saltar cada N cuadros (default 1 = todos los cuadros): ").strip()
+            s = input(f"  {C_BOLD}{C_GREEN}»{RESET_COLOR} Saltar cada N cuadros (default 1): ").strip()
             args.skip = int(s) if s else 1
         except ValueError:
             args.skip = 1
 
-        loop_input = input("  ¿Repetir video? (s/N): ").strip().lower()
+        loop_input = input(f"  {C_BOLD}{C_GREEN}»{RESET_COLOR} ¿Repetir video? (s/N): ").strip().lower()
         args.loop   = loop_input == "s"
 
     # Si se especifica un ancho manualmente, desactivamos el fit automático por defecto
@@ -459,6 +547,7 @@ def main() -> None:
             use_color  = args.color,
             skip       = args.skip,
             loop       = args.loop,
+            fit_screen = args.fit
         )
     except KeyboardInterrupt:
         sys.stdout.write(SHOW_CURSOR)
