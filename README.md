@@ -24,49 +24,7 @@
   </details>
 </div>
 
----
 
-## ⚡ Showcase & Visual Tour
-
-Discover the modern, beautifully styled visual components that power our ASCII interface:
-
-<table align="center" style="width: 100%; text-align: center; border-collapse: collapse;">
-  <tr>
-    <td width="50%"><strong>🖥️ Web Application Dashboard</strong></td>
-    <td width="50%"><strong>🎨 True Color RGB Dithering</strong></td>
-  </tr>
-  <tr>
-    <td><img src="web-app/assets/readme/app-interface.png" alt="Web Application Dashboard" style="border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); max-width: 100%;" /></td>
-    <td><img src="web-app/assets/readme/dithering-color-render.png" alt="True Color RGB Dithering" style="border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); max-width: 100%;" /></td>
-  </tr>
-  <tr>
-    <td colspan="2"><br/></td>
-  </tr>
-  <tr>
-    <td width="50%"><strong>🤖 Generative Prompt Engine</strong></td>
-    <td width="50%"><strong>🔋 Phosphor Green 3D Retro Render</strong></td>
-  </tr>
-  <tr>
-    <td><img src="web-app/assets/readme/ai-prompt-generator.png" alt="Generative AI to ASCII Output" style="border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); max-width: 100%;" /></td>
-    <td><img src="web-app/assets/readme/3d-cube-render.png" alt="Phosphor Green 3D Rotating Cube" style="border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); max-width: 100%;" /></td>
-  </tr>
-  <tr>
-    <td colspan="2"><br/></td>
-  </tr>
-  <tr>
-    <td width="50%"><strong>📽️ Interactive Custom Themes (Neon & Matrix)</strong></td>
-    <td width="50%"><strong>⭐ Real-Time GitHub Star Tracker</strong></td>
-  </tr>
-  <tr>
-    <td><img src="web-app/assets/readme/matrix-neon-render.png" alt="Matrix and Neon Theme Render" style="border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); max-width: 100%;" /></td>
-    <td><img src="web-app/assets/readme/github-stars-sync.png" alt="GitHub Stargazers Sync" style="border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); max-width: 100%;" /></td>
-  </tr>
-</table>
-
-> [!NOTE]
-> *Make sure to commit and push all files in `web-app/assets/readme/` to your remote repository so GitHub can display these local assets correctly.*
-
----
 
 ## 🛠️ Technological Stacks & Architecture
 
