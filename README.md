@@ -11,6 +11,10 @@
     <img src="https://img.shields.io/badge/NumPy-1.20+-013243?style=for-the-badge&logo=numpy&logoColor=white" alt="NumPy Support" />
     <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License MIT" />
   </p>
+
+  <p>
+    <iframe src="https://github.com/sponsors/CoralGamer/button" title="Sponsor CoralGamer" height="32" width="114" style="border: 0; border-radius: 6px;"></iframe>
+  </p>
 </div>
 
 ---
